@@ -3,6 +3,7 @@ import tqdm
 import traceback
 from .tools import _concat
 from ..logger import _logger
+import numpy as np
 
 try:
     import uproot3
@@ -29,6 +30,13 @@ def _read_hdf5(filepath, branches, load_range=None):
 
 
 def _read_root(filepath, branches, load_range=None, treename=None):
+    _branches = branches.copy()
+    if 'JHUGen' not in filepath:
+        hww_branches = []
+        for b in branches:
+            if b.startswith('label_H_ww'):
+                _branches.remove(b)
+                hww_branches.append(b)
     with uproot3.open(filepath) as f:
         if treename is None:
             treenames = set([k.decode('utf-8').split(';')[0] for k, v in f.allitems() if getattr(v, 'classname', '') == 'TTree'])
@@ -42,7 +50,10 @@ def _read_root(filepath, branches, load_range=None, treename=None):
             stop = max(start + 1, math.trunc(load_range[1] * tree.numentries))
         else:
             start, stop = None, None
-        outputs = tree.arrays(branches, namedecode='utf-8', entrystart=start, entrystop=stop)
+        outputs = tree.arrays(_branches, namedecode='utf-8', entrystart=start, entrystop=stop)
+    if 'JHUGen' not in filepath:
+        nent = len(list(outputs.items())[0][1])
+        outputs.update({b: np.zeros(nent, dtype=int) for b in hww_branches})
     return outputs
 
 
