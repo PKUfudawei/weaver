@@ -3,8 +3,8 @@
 
    ## Note: hww has fake fj_isQCD=1.. However in below selection we do not select label_H_wwunmatch in training pool
 selection: >-
-   (jet_tightId==1) & (jet_no<2) & (fj_sdmass>=30) & (fj_sdmass<260) & (fj_pt>200) & (fj_pt<2500) & 
-   (((sample_isQCD==0) & (fj_isQCD==0)) | ((label_H_ww2qsame==1) | (label_H_ww2qsep==1) | (label_H_ww4q==1) | (label_H_ww3q==1) | (label_H_wwevqq==1) | (label_H_wwmvqq==1) | (label_H_wwleptauevqq==1) | (label_H_wwleptaumvqq==1) | (label_H_wwhadtauvqq==1)) | ((sample_isQCD==1) & (fj_isQCD==1)))
+   (jet_tightId==1) & (jet_no<2) & (fj_genjet_sdmass>20) & (fj_genjet_sdmass<240) & (fj_pt>200) & (fj_pt<2500) & 
+   (( (label_H_ww2qsame==1) | (label_H_ww2qsep==1) | (label_H_ww4q==1) | (label_H_ww3q==1) | (label_H_wwevqq==1) | (label_H_wwmvqq==1) | (label_H_wwleptauevqq==1) | (label_H_wwleptaumvqq==1) | (label_H_wwhadtauvqq==1) ) | ( (sample_isQCD==1) & (fj_isQCD==1) ))
 
 new_variables:
    ### [format] name: formula
@@ -15,7 +15,8 @@ new_variables:
    ## label_H_wwleptauvqq: (label_H_wwleptauevqq==1) | (label_H_wwleptaumvqq==1)
    ## label_H_wwqqplus: (label_H_ww2qsame==1) | (label_H_ww2qsep==1) | (label_H_ww4q==1) | (label_H_ww3q==1)
    label_H_ww: (label_H_ww2qsame==1) | (label_H_ww2qsep==1) | (label_H_ww4q==1) | (label_H_ww3q==1) | (label_H_wwevqq==1) | (label_H_wwmvqq==1) | (label_H_wwleptauevqq==1) | (label_H_wwleptaumvqq==1) | (label_H_wwhadtauvqq==1)
-   fj_isQCDreal: (fj_isQCD==1) & ~((label_H_ww2qsame==1) | (label_H_ww2qsep==1) | (label_H_ww4q==1) | (label_H_ww3q==1) | (label_H_wwevqq==1) | (label_H_wwmvqq==1) | (label_H_wwleptauevqq==1) | (label_H_wwleptaumvqq==1) | (label_H_wwhadtauvqq==1))
+
+   ## fj_isQCDreal: (fj_isQCD==1) & ~((label_H_ww2qsame==1) | (label_H_ww2qsep==1) | (label_H_ww4q==1) | (label_H_ww3q==1) | (label_H_wwevqq==1) | (label_H_wwmvqq==1) | (label_H_wwleptauevqq==1) | (label_H_wwleptaumvqq==1) | (label_H_wwhadtauvqq==1))
 
 preprocess:
   ### method: [manual, auto] - whether to use manually specified parameters for variable standardization
@@ -92,15 +93,14 @@ labels:
    ### [option 1] use `simple` for binary/multi-class classification, then `value` is a list of 0-1 labels
    type: simple
    value: [
-      #label_H_bb, label_H_cc, label_H_qq,
       label_H_ww4q, label_H_ww3q, label_H_ww2qsame, label_H_ww2qsep, 
       label_H_wwevqq, label_H_wwmvqq, label_H_wwleptauevqq, label_H_wwleptaumvqq, label_H_wwhadtauvqq,
       label_QCD_bb, label_QCD_cc, label_QCD_b, label_QCD_c, label_QCD_others,
       ]
    ### [option 2] otherwise use `custom` to define the label, then `value` is a map
-   # type: custom
-   # value: 
-      # target_mass: np.where(fj_isQCD, fj_genjet_sdmass, fj_gen_mass) 
+   type: custom
+   value: 
+      target_mass: np.where(fj_isQCD, fj_genjet_sdmass, fj_gen_mass) 
 
 observers:
    - event_no
@@ -137,12 +137,12 @@ weights:
    reweight_method: flat
    reweight_vars:
       fj_pt: [200, 251, 316, 398, 501, 630, 793, 997, 1255, 1579, 1987, 2500]
-      fj_gen_mass: [20, 27.5, 35, 45, 55, 70, 85, 100, 125, 145, 160, 180, 200]
+      fj_genjet_sdmass: [20, 27.5, 35, 45, 55, 70, 85, 100, 125, 145, 160, 180, 220]
    reweight_classes: [
-      fj_isQCDreal, 
-      # label_H_ww4q, label_H_ww3q, label_H_wwlvqq, label_H_wwleptauvqq, label_H_wwhadtauvqq
+      fj_isQCD, 
+      #label_H_ww4q, label_H_ww3q, label_H_wwlvqq, label_H_wwleptauvqq, label_H_wwhadtauvqq,
       label_H_ww
       ]
-   class_weights: [1, 1, 1, 1, 1]
+   class_weights: [1,1]
    reweight_hists:
 
