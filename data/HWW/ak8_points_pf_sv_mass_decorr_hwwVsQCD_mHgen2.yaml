@@ -4,20 +4,20 @@
    ## Note: hww has fake fj_isQCD=1.. However in below selection we do not select label_H_wwunmatch in training pool
 selection: >-
    (jet_tightId==1) & (jet_no<2) & (fj_pt>200) & (fj_pt<2500) & 
-   (np.where(fj_isQCD, fj_genjet_sdmass, fj_gen_mass)>=13)  & (np.where(fj_isQCD, fj_genjet_sdmass, fj_gen_mass)<193) & 
-   (((label_H_ww4q==1) | (label_H_ww3q==1) 
+   (np.where((fj_isQCD==1) & (sample_isQCD==1), fj_genjet_sdmass, fj_gen_mass)>=20) & (np.where((fj_isQCD==1) & (sample_isQCD==1), fj_genjet_sdmass, fj_gen_mass)<200) & 
+   ( ((label_H_ww4q==1) | (label_H_ww3q==1) | (label_H_ww2qsep==1) 
    | (label_H_wwevqq==1) | (label_H_wwmvqq==1) | (label_H_wwleptauevqq==1) | (label_H_wwleptaumvqq==1) | (label_H_wwhadtauvqq==1)) 
-   | ((sample_isQCD==1) & (fj_isQCD==1)))
+   | ((sample_isQCD==1) & (fj_isQCD==1)) )
 
 new_variables:
    ### [format] name: formula
    ### can use functions from `math`, `np` (numpy), and `awkward` in the expression
    pfcand_mask: awkward.JaggedArray.ones_like(pfcand_etarel)
    sv_mask: awkward.JaggedArray.ones_like(sv_etarel)
-   label_H_ww: (label_H_ww4q==1) | (label_H_ww3q==1) | (label_H_wwevqq==1) | (label_H_wwmvqq==1) | (label_H_wwleptauevqq==1) | (label_H_wwleptaumvqq==1) | (label_H_wwhadtauvqq==1)
-   fj_isQCDreal: (fj_isQCD==1) & ~((label_H_ww4q==1) | (label_H_ww3q==1) | (label_H_ww2qsame==1) | (label_H_wwevqq==1) | (label_H_wwmvqq==1) | (label_H_wwleptauevqq==1) | (label_H_wwleptaumvqq==1) | (label_H_wwhadtauvqq==1)) 
-   target_mass: np.where(fj_isQCD, fj_genjet_sdmass, fj_gen_mass) 
-
+   label_H_ww: (label_H_ww4q==1) | (label_H_ww3q==1) | (label_H_ww2qsep==1) | (label_H_wwevqq==1) | (label_H_wwmvqq==1) | (label_H_wwleptauevqq==1) | (label_H_wwleptaumvqq==1) | (label_H_wwhadtauvqq==1)
+   fj_isQCDreal: (fj_isQCD==1) & (sample_isQCD==1)
+   target_mass: np.where((fj_isQCD==1) & (sample_isQCD==1), fj_genjet_sdmass, fj_gen_mass) 
+ 
 
 preprocess:
   ### method: [manual, auto] - whether to use manually specified parameters for variable standardization
@@ -94,7 +94,7 @@ labels:
    ### [option 1] use `simple` for binary/multi-class classification, then `value` is a list of 0-1 labels
    type: simple
    value: [
-      label_H_ww4q, label_H_ww3q, #label_H_ww2qsame, label_H_ww2qsep,
+      label_H_ww4q, label_H_ww3q, label_H_ww2qsep,
       label_H_wwevqq, label_H_wwmvqq, label_H_wwleptauevqq, label_H_wwleptaumvqq, label_H_wwhadtauvqq,
       label_QCD_bb, label_QCD_cc, label_QCD_b, label_QCD_c, label_QCD_others,
       ]
@@ -138,7 +138,7 @@ weights:
    reweight_method: flat
    reweight_vars:
       fj_pt: [200, 251, 316, 398, 501, 630, 793, 997, 1255, 1579, 1987, 2500]
-      target_mass: [13, 28, 43, 58, 73, 88, 103, 118, 133, 148, 163, 178, 193]
+      target_mass: [22.5, 27.5, 35, 45, 55, 70, 85, 100, 125, 145, 160, 180, 200]
    reweight_classes: [
       fj_isQCDreal, 
       #label_H_ww4q, label_H_ww3q, label_H_ww2qsame, label_H_ww2qsep,
