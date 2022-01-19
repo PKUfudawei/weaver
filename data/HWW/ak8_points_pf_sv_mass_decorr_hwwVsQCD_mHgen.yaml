@@ -2,12 +2,12 @@
    ### can use functions from `math`, `np` (numpy), and `awkward` in the expression
 
    ## Note: hww has fake fj_isQCD=1.. However in below selection we do not select label_H_wwunmatch in training pool
-selection: >-
-   (jet_tightId==1) & (jet_no<2) & (fj_pt>200) & (fj_pt<2500) & 
-   (np.where(fj_isQCD, fj_genjet_sdmass, fj_gen_mass)>=13)  & (np.where(fj_isQCD, fj_genjet_sdmass, fj_gen_mass)<193) & 
-   (((label_H_ww4q==1) | (label_H_ww3q==1) 
-   | (label_H_wwevqq==1) | (label_H_wwmvqq==1) | (label_H_wwleptauevqq==1) | (label_H_wwleptaumvqq==1) | (label_H_wwhadtauvqq==1)) 
-   | ((sample_isQCD==1) & (fj_isQCD==1)))
+#selection: >-
+#   (jet_tightId==1) & (jet_no<2) & (fj_pt>200) & (fj_pt<2500) & 
+#   (np.where(fj_isQCD, fj_genjet_sdmass, fj_gen_mass)>=13)  & (np.where(fj_isQCD, fj_genjet_sdmass, fj_gen_mass)<253) & 
+#   (((label_H_ww4q==1) | (label_H_ww3q==1) 
+#   | (label_H_wwevqq==1) | (label_H_wwmvqq==1) | (label_H_wwleptauevqq==1) | (label_H_wwleptaumvqq==1) | (label_H_wwhadtauvqq==1)) 
+#   | ((sample_isQCD==1) & (fj_isQCD==1)))
 
 new_variables:
    ### [format] name: formula
@@ -138,7 +138,7 @@ weights:
    reweight_method: flat
    reweight_vars:
       fj_pt: [200, 251, 316, 398, 501, 630, 793, 997, 1255, 1579, 1987, 2500]
-      target_mass: [13, 28, 43, 58, 73, 88, 103, 118, 133, 148, 163, 178, 193]
+      target_mass: [13, 33, 53, 73, 93, 113, 133, 153, 173, 193, 213, 233, 253]
    reweight_classes: [
       fj_isQCDreal, 
       #label_H_ww4q, label_H_ww3q, label_H_ww2qsame, label_H_ww2qsep,
