@@ -1,11 +1,11 @@
 selection:
    ### use `&`, `|`, `~` for logical operations on numpy arrays
    ### can use functions from `math`, `np` (numpy), and `awkward` in the expression
-   (jet_tightId==1) & (jet_no<2) & (fj_pt>200) & (fj_pt<2500) & (((sample_isQCD==0) & (fj_isQCD==0)) | ((sample_isQCD==1) & (fj_isQCD==1))) & (event_no%7!=0)
+   (jet_tightId==1) & (jet_no<2) & (fj_pt>200) & (fj_pt<2500) & (np.where(fj_isQCD, fj_genjet_sdmass, fj_gen_mass)>=13) & (np.where(fj_isQCD, fj_genjet_sdmass, fj_gen_mass)<253) & (((label_H_ww4q==1) | (label_H_ww3q==1) | (label_H_wwevqq==1) | (label_H_wwmvqq==1) | (label_H_wwleptauevqq==1) | (label_H_wwleptaumvqq==1) | (label_H_wwhadtauvqq==1)) | ((sample_isQCD==1) & (fj_isQCD==1))) ## & (event_no%7!=0)
 
 test_time_selection:
    ### selection to apply at test time (i.e., when running w/ --predict)
-   (jet_tightId==1) & (jet_no<2) & (fj_pt>200) & (fj_pt<2500) & (((sample_isQCD==0) & (fj_isQCD==0)) | ((sample_isQCD==1) & (fj_isQCD==1))) & (event_no%7==0)
+   (jet_tightId==1) & (jet_no<2) & (fj_pt>200) & (fj_pt<2500) & (np.where(fj_isQCD, fj_genjet_sdmass, fj_gen_mass)>=13) & (np.where(fj_isQCD, fj_genjet_sdmass, fj_gen_mass)<253) & (((label_H_ww4q==1) | (label_H_ww3q==1) | (label_H_wwevqq==1) | (label_H_wwmvqq==1) | (label_H_wwleptauevqq==1) | (label_H_wwleptaumvqq==1) | (label_H_wwhadtauvqq==1)) | ((sample_isQCD==1) & (fj_isQCD==1))) ## & (event_no%7==0)
 
 new_variables:
    ### [format] name: formula
@@ -127,6 +127,13 @@ observers:
    - pfMassDecorrelatedParticleNetJetTags_probXbb
    - pfMassDecorrelatedParticleNetJetTags_probXcc
    - pfMassDecorrelatedParticleNetJetTags_probXqq
+   - label_H_ww4q
+   - label_H_ww3q
+   - label_H_wwevqq
+   - label_H_wwmvqq
+   - label_H_wwleptauevqq
+   - label_H_wwleptaumvqq
+   - label_H_wwhadtauvqq
 
 weights:
    ### [option 1] use precomputed weights stored in the input files
