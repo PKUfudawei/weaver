@@ -8,7 +8,7 @@ selection: >-
 
 ### selection to apply at test time (i.e., when running w/ --predict)
 test_time_selection: >-
-   (jet_tightId==1) & (jet_no<2) & (fj_sdmass>=30) & (fj_sdmass<260) & (fj_pt>200) & (fj_pt<2500) & (np.where(fj_isQCD, fj_genjet_sdmass, fj_gen_mass)>=13) & (np.where(fj_isQCD, fj_genjet_sdmass, fj_gen_mass)<253) &
+   (jet_tightId==1) & (jet_no<2) & (fj_sdmass>=30) & (fj_sdmass<260) & (fj_pt>200) & (fj_pt<2500) & 
    (((label_H_ww4q==1) | (label_H_ww3q==1) | (label_H_wwlvqq==1) | (label_H_wwleptauvqq==1) | (label_H_wwhadtauvqq==1)) | ((sample_isQCD==1) & (fj_isQCD==1) & (event_no%7==0)))
 
 new_variables:
