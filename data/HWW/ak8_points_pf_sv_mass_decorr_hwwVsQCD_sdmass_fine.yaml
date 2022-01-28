@@ -51,11 +51,6 @@ inputs:
          - pfcand_phirel
          - [pfcand_abseta, 0.6, 1.6]
          - pfcand_charge
-         - pfcand_isEl
-         - pfcand_isMu
-         - pfcand_isGamma
-         - pfcand_isChargedHad
-         - pfcand_isNeutralHad
          - [pfcand_VTX_ass, 4, 0.3]
          - pfcand_lostInnerHits
          - [pfcand_normchi2, 5, 0.2]
@@ -156,5 +151,5 @@ weights:
       label_H_wwevqq, label_H_wwmvqq, label_H_wwleptauevqq, label_H_wwleptaumvqq, label_H_wwhadtauvqq,
       #label_H_ww,
       ]
-   class_weights: [1,1]
+   class_weights: [1, 0.34, 0.08, 0.2, 0.2, 0.03, 0.03, 0.12]
    reweight_hists:
