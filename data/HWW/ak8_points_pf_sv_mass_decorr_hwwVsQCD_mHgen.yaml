@@ -122,6 +122,8 @@ observers:
    - fj_phi
    - fj_sdmass
    - fj_sdmass_fromsubjets
+   - fj_isQCD
+   - sample_isQCD
    - npfcands
    - pfDeepBoostedDiscriminatorsJetTags_TvsQCD
    - pfDeepBoostedDiscriminatorsJetTags_WvsQCD
@@ -137,6 +139,8 @@ observers:
    - pfMassDecorrelatedParticleNetJetTags_probXbb
    - pfMassDecorrelatedParticleNetJetTags_probXcc
    - pfMassDecorrelatedParticleNetJetTags_probXqq
+   
+   
 
 weights:
    ### [option 1] use precomputed weights stored in the input files

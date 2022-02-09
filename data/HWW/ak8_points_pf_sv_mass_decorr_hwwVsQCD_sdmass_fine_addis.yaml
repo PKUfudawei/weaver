@@ -124,6 +124,8 @@ observers:
    - fj_sdmass_fromsubjets
    - fj_gen_mass
    - fj_genjet_sdmass
+   - fj_isQCD
+   - sample_isQCD
    - npfcands
    - pfDeepBoostedDiscriminatorsJetTags_TvsQCD
    - pfDeepBoostedDiscriminatorsJetTags_WvsQCD
