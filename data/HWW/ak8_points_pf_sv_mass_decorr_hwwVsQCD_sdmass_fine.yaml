@@ -11,7 +11,7 @@ selection: >-
 test_time_selection: >-
     (jet_tightId==1) & (jet_no<2) & (fj_pt>200) & (fj_pt<2500) & (fj_sdmass>13) & (fj_sdmass<253)
     & (((label_H_ww4q==1) | (label_H_ww3q==1) | (label_H_wwevqq==1) | (label_H_wwmvqq==1) | (label_H_wwleptauevqq==1) | (label_H_wwleptaumvqq==1) | (label_H_wwhadtauvqq==1)) 
-    | ((sample_isQCD==1) & (fj_isQCD==1) & (event_no%7==0)))
+    | ((sample_isQCD==1) & (fj_isQCD==1) & (event_no%7!=0)))
 
 new_variables:
     ### [format] name: formula
@@ -194,5 +194,5 @@ weights:
             label_H_wwhadtauvqq,
             #label_H_ww,
         ]
-    class_weights: [1, 0.143, 0.143, 0.143, 0.143, 0.143, 0.143, 0.143]
+    class_weights: [1, 0.34, 0.08, 0.2, 0.2, 0.03, 0.03, 0.12]
     reweight_hists:
