@@ -19,7 +19,7 @@ new_variables:
     pfcand_mask: awkward.JaggedArray.ones_like(pfcand_etarel)
     sv_mask: awkward.JaggedArray.ones_like(sv_etarel)
     label_H_ww: (label_H_ww4q==1) | (label_H_ww3q==1) | (label_H_wwevqq==1) | (label_H_wwmvqq==1) | (label_H_wwleptauevqq==1) | (label_H_wwleptaumvqq==1) | (label_H_wwhadtauvqq==1)
-    fj_isQCDreal: (fj_isQCD==1) & ~((label_H_ww4q==1) | (label_H_ww3q==1) | (label_H_wwevqq==1) | (label_H_wwmvqq==1) | (label_H_wwleptauevqq==1) | (label_H_wwleptaumvqq==1) | (label_H_wwhadtauvqq==1))
+    fj_isQCDreal: (fj_isQCD==1) & (sample_isQCD==1)
     ##target_mass: np.where(fj_isQCD, fj_genjet_sdmass, fj_gen_mass)
 
 preprocess:
