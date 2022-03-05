@@ -3,15 +3,15 @@
 
 ## Note: hww has fake fj_isQCD=1.. However in below selection we do not select label_H_wwunmatch in training pool
 selection: >-
-    (jet_tightId==1) & (jet_no<2) & (fj_pt>200) & (fj_pt<2500) & (fj_sdmass>13) & (fj_sdmass<253)
+    (jet_tightId==1) & (jet_no<2) & (fj_pt>200) & (fj_pt<2500) & (fj_sdmass>=10) & (fj_sdmass<=250)
     & (((label_H_ww4q==1) | (label_H_ww3q==1) | (label_H_wwevqq==1) | (label_H_wwmvqq==1) | (label_H_wwleptauevqq==1) | (label_H_wwleptaumvqq==1) | (label_H_wwhadtauvqq==1)) 
     | ((sample_isQCD==1) & (fj_isQCD==1) & (event_no%7!=0)))
 
 ### selection to apply at test time (i.e., when running w/ --predict)
 test_time_selection: >-
-    (jet_tightId==1) & (jet_no<2) & (fj_pt>200) & (fj_pt<2500) & (fj_sdmass>13) & (fj_sdmass<253)
+    (jet_tightId==1) & (jet_no<2) & (fj_pt>200) & (fj_pt<2500) & (fj_sdmass>=10) & (fj_sdmass<=250)
     & (((label_H_ww4q==1) | (label_H_ww3q==1) | (label_H_wwevqq==1) | (label_H_wwmvqq==1) | (label_H_wwleptauevqq==1) | (label_H_wwleptaumvqq==1) | (label_H_wwhadtauvqq==1)) 
-    | ((sample_isQCD==1) & (fj_isQCD==1) & (event_no%7!=0)))
+    | ((sample_isQCD==1) & (fj_isQCD==1) & (event_no%7==0)))
 
 new_variables:
     ### [format] name: formula
@@ -121,6 +121,7 @@ observers:
     - fj_label
     - label_W_cq
     - label_W_qq
+    - label_H_ww
     - fj_pt
     - fj_eta
     - fj_phi
@@ -157,42 +158,42 @@ weights:
         fj_pt: [200, 251, 316, 398, 501, 630, 793, 997, 1255, 1579, 1987, 2500]
         fj_sdmass:
             [
-                13,
-                23,
-                33,
-                43,
-                53,
-                63,
-                73,
-                83,
-                93,
-                103,
-                113,
-                123,
-                133,
-                143,
-                153,
-                163,
-                173,
-                183,
-                193,
-                203,
-                213,
-                223,
-                233,
-                243,
-                253,
+                10,
+                20,
+                30,
+                40,
+                50,
+                60,
+                70,
+                80,
+                90,
+                100,
+                110,
+                120,
+                130,
+                140,
+                150,
+                160,
+                170,
+                180,
+                190,
+                200,
+                210,
+                220,
+                230,
+                240,
+                250,
             ]
     reweight_classes: [
             fj_isQCDreal,
             label_H_ww4q,
             label_H_ww3q,
-            #label_H_wwevqq,
-            #label_H_wwmvqq,
-            #label_H_wwleptauevqq,
-            #label_H_wwleptaumvqq,
-            #label_H_wwhadtauvqq,
+            label_H_wwevqq,
+            label_H_wwmvqq,
+            label_H_wwleptauevqq,
+            label_H_wwleptaumvqq,
+            label_H_wwhadtauvqq,
             #label_H_ww,
         ]
-    class_weights: [1, 0.34, 0.34]
+    class_weights: [1, 0.34, 0.08, 0.2, 0.2, 0.03, 0.03, 0.12]
     reweight_hists:
