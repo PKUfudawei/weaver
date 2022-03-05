@@ -3,13 +3,13 @@
 
 ## Note: hww has fake fj_isQCD=1.. However in below selection we do not select label_H_wwunmatch in training pool
 selection: >-
-    (jet_tightId==1) & (jet_no<2) & (fj_pt>200) & (fj_pt<2500) & (np.where(fj_isQCD, fj_genjet_sdmass, fj_gen_mass)>=10) & (np.where(fj_isQCD, fj_genjet_sdmass, fj_gen_mass)<=250) 
+    (jet_tightId==1) & (jet_no<2) & (fj_pt>200) & (fj_pt<2500) & (np.where((fj_isQCD==1) & (sample_isQCD==1), fj_genjet_sdmass, fj_gen_mass)>=10) & (np.where((fj_isQCD==1) & (sample_isQCD==1), fj_genjet_sdmass, fj_gen_mass)<=250) 
     & (((label_H_ww4q==1) | (label_H_ww3q==1) | (label_H_wwevqq==1) | (label_H_wwmvqq==1) | (label_H_wwleptauevqq==1) | (label_H_wwleptaumvqq==1) | (label_H_wwhadtauvqq==1)) 
     | ((sample_isQCD==1) & (fj_isQCD==1) & (event_no%7!=0)))
 
 ### selection to apply at test time (i.e., when running w/ --predict)
 test_time_selection: >-
-    (jet_tightId==1) & (jet_no<2) & (fj_pt>200) & (fj_pt<2500) & (np.where(fj_isQCD, fj_genjet_sdmass, fj_gen_mass)>=10) & (np.where(fj_isQCD, fj_genjet_sdmass, fj_gen_mass)<=250) 
+    (jet_tightId==1) & (jet_no<2) & (fj_pt>200) & (fj_pt<2500) & (np.where((fj_isQCD==1) & (sample_isQCD==1), fj_genjet_sdmass, fj_gen_mass)>=10) & (np.where((fj_isQCD==1) & (sample_isQCD==1), fj_genjet_sdmass, fj_gen_mass)<=250) 
     & (((label_H_ww4q==1) | (label_H_ww3q==1) | (label_H_wwevqq==1) | (label_H_wwmvqq==1) | (label_H_wwleptauevqq==1) | (label_H_wwleptaumvqq==1) | (label_H_wwhadtauvqq==1)) 
     | ((sample_isQCD==1) & (fj_isQCD==1) & (event_no%7==0)))
 
@@ -20,7 +20,7 @@ new_variables:
     sv_mask: awkward.JaggedArray.ones_like(sv_etarel)
     label_H_ww: (label_H_ww4q==1) | (label_H_ww3q==1) | (label_H_wwevqq==1) | (label_H_wwmvqq==1) | (label_H_wwleptauevqq==1) | (label_H_wwleptaumvqq==1) | (label_H_wwhadtauvqq==1)
     fj_isQCDreal: (fj_isQCD==1) & (sample_isQCD==1)
-    target_mass: np.where(fj_isQCD, fj_genjet_sdmass, fj_gen_mass)
+    target_mass: np.where((fj_isQCD==1) & (sample_isQCD==1), fj_genjet_sdmass, fj_gen_mass)
 
 preprocess:
     ### method: [manual, auto] - whether to use manually specified parameters for variable standardization
