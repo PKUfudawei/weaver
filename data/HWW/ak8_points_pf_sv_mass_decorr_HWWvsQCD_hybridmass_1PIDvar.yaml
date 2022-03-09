@@ -3,13 +3,13 @@
 
 ## Note: hww has fake fj_isQCD=1.. However in below selection we do not select label_H_wwunmatch in training pool
 selection: >-
-    (jet_tightId==1) & (jet_no<2) & (fj_pt>200) & (np.where((fj_isQCD==1) & (sample_isQCD==1), fj_sdmass, fj_gen_mass)>=10) & (np.where((fj_isQCD==1) & (sample_isQCD==1), fj_sdmass, fj_gen_mass)<=250) 
+    (jet_tightId==1) & (jet_no<2) & (fj_pt>200) & (np.where((fj_isQCD==1) & (sample_isQCD==1), fj_sdmass, fj_gen_mass)>=20) & (np.where((fj_isQCD==1) & (sample_isQCD==1), fj_sdmass, fj_gen_mass)<260) 
     & (((label_H_ww4q==1) | (label_H_ww3q==1) | (label_H_wwevqq==1) | (label_H_wwmvqq==1) | (label_H_wwleptauevqq==1) | (label_H_wwleptaumvqq==1) | (label_H_wwhadtauvqq==1)) 
     | ((sample_isQCD==1) & (fj_isQCD==1) & (event_no%7!=0)))
 
 ### selection to apply at test time (i.e., when running w/ --predict)
 test_time_selection: >-
-    (jet_tightId==1) & (jet_no<2) & (fj_pt>200) & (fj_pt<2500) & (fj_sdmass>=10) & (fj_sdmass<=250)
+    (jet_tightId==1) & (jet_no<2) & (fj_pt>200) & (fj_pt<2500) & (fj_sdmass>=20) & (fj_sdmass<260)
     & (((label_H_ww4q==1) | (label_H_ww3q==1) | (label_H_wwevqq==1) | (label_H_wwmvqq==1) | (label_H_wwleptauevqq==1) | (label_H_wwleptaumvqq==1) | (label_H_wwhadtauvqq==1)) 
     | ((sample_isQCD==1) & (fj_isQCD==1) & (event_no%7==0)))
 
