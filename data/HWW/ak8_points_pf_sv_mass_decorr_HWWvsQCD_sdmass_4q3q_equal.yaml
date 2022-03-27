@@ -10,7 +10,7 @@ selection: >-
 ### selection to apply at test time (i.e., when running w/ --predict)
 test_time_selection: >-
     (jet_tightId==1) & (jet_no<2) & (fj_pt>200) & (fj_pt<2500) & (fj_sdmass>=20) & (fj_sdmass<260)
-    & (((label_H_ww4q==1) | (label_H_ww3q==1) | (label_H_wwevqq==1) | (label_H_wwmvqq==1) | (label_H_wwleptauevqq==1) | (label_H_wwleptaumvqq==1) | (label_H_wwhadtauvqq==1)) 
+    & (((label_H_ww4q==1) | (label_H_ww3q==1)) 
     | ((sample_isQCD==1) & (fj_isQCD==1) & (event_no%7==0)))
 
 new_variables:

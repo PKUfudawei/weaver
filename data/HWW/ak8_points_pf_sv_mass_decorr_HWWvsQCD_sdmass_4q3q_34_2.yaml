@@ -190,5 +190,5 @@ weights:
             #label_H_wwhadtauvqq,
             #label_H_ww,
         ]
-    class_weights: [1, 0.34, 0.08]
+    class_weights: [1, 0.34, 0.02]
     reweight_hists:
