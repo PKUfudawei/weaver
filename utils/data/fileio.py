@@ -32,12 +32,12 @@ def _read_hdf5(filepath, branches, load_range=None):
 
 def _read_root(filepath, branches, load_range=None, treename=None):
     _branches = branches.copy()
-    if 'JHUGen' not in filepath:
-        hww_branches = []
-        for b in branches:
-            if b.startswith('label_H_ww'):
-                _branches.remove(b)
-                hww_branches.append(b)
+    # if 'JHUGen' not in filepath:
+    #    hww_branches = []
+    #    for b in branches:
+    #        if b.startswith('label_H_ww'):
+    #            _branches.remove(b)
+    #            hww_branches.append(b)
 
     with uproot3.open(filepath) as f:
         if treename is None:
@@ -56,9 +56,9 @@ def _read_root(filepath, branches, load_range=None, treename=None):
             start, stop = None, None
         outputs = tree.arrays(_branches, namedecode='utf-8',
                               entrystart=start, entrystop=stop)
-    if 'JHUGen' not in filepath:
-        nent = len(list(outputs.items())[0][1])
-        outputs.update({b: np.zeros(nent, dtype=int) for b in hww_branches})
+    # if 'JHUGen' not in filepath:
+    #    nent = len(list(outputs.items())[0][1])
+    #    outputs.update({b: np.zeros(nent, dtype=int) for b in hww_branches})
     return outputs
 
 
