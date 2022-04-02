@@ -1,4 +1,5 @@
-output
+output/
+!output/*/*/pnet*_best_epoch_state.pt
 predict
 runs
 
