@@ -1,5 +1,5 @@
-output/
-!output/*/*/pnet*_best_epoch_state.pt
+output/*/*/pnet*_epoch-*_state.pt
+output/*/*/pnet*_epoch-*_optimizer.pt
 predict
 runs
 
