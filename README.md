@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # Weaver
 
 `Weaver` aims at providing a streamlined yet flexible machine learning R&D framework for high energy physics (HEP) applications. It puts particular emphases on:
@@ -237,6 +236,3 @@ f.SetCompressionLevel(4);
   - Note that the memory usage also increases with the number of workers. So if you are getting any memory-related errors, try reducing `--num-workers`.
   - Note that the workload splitting is file-based, so make sure the number of input files is not too small (i.e., make sure each worker is able to load several files to get samples _from all classes_).
     - **e.g., if each (signal/background) class is present in only one input file, please use `--num-workers 1` so that they are properly mixed for the training.**
-=======
-# weaver
->>>>>>> ed4207dda92345a59179184ad1a0d08aa17d2e36
